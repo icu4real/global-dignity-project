@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Heart, Mail, Shield, Globe } from "lucide-react";
+import { EmailSubscription } from "@/components/EmailSubscription";
 
 const footerLinks = {
   organization: [
@@ -111,6 +112,23 @@ export function Footer() {
               <Mail className="w-4 h-4" />
               contact@dignityglobal.org
             </a>
+          </div>
+        </div>
+
+        {/* Newsletter Subscription */}
+        <div className="mt-12 pt-8 border-t border-primary-foreground/10">
+          <div className="max-w-md mx-auto text-center mb-6">
+            <h4 className="font-serif text-lg mb-2">Stay informed</h4>
+            <p className="text-sm text-primary-foreground/70">
+              Get quarterly impact reports and stories from the field
+            </p>
+          </div>
+          <div className="max-w-md mx-auto">
+            <EmailSubscription
+              subscriptionType="newsletter"
+              buttonText="Subscribe"
+              placeholder="Enter your email"
+            />
           </div>
         </div>
 

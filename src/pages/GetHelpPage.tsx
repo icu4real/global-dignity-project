@@ -1,7 +1,7 @@
 import { Layout } from "@/components/layout/Layout";
 import { Phone, Mail, Globe, Shield, Lock, AlertTriangle, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
+import { ContactForm } from "@/components/ContactForm";
 const crisisResources = [
   {
     name: "24/7 Emergency Hotline",
@@ -243,24 +243,23 @@ export default function GetHelpPage() {
         </div>
       </section>
 
-      {/* Contact Form Alternative */}
+      {/* Contact Form Section */}
       <section className="section-padding">
-        <div className="container-campaign text-center max-w-2xl mx-auto">
-          <h2 className="headline-section text-foreground mb-6">
-            Prefer to reach out another way?
-          </h2>
-          <p className="body-large text-muted-foreground mb-8">
-            If you're not in immediate crisis but need support, you can 
-            email us at{" "}
-            <a href="mailto:help@dignityglobal.org" className="link-underline">
-              help@dignityglobal.org
-            </a>
-            . We respond within 24-48 hours.
-          </p>
-          <p className="text-sm text-muted-foreground">
-            All communications are treated as confidential. We will never 
-            share your information without your explicit consent.
-          </p>
+        <div className="container-campaign">
+          <div className="max-w-2xl mx-auto">
+            <div className="text-center mb-8">
+              <h2 className="headline-section text-foreground mb-4">
+                Send us a message
+              </h2>
+              <p className="text-muted-foreground">
+                If you're not in immediate crisis but need support, fill out the form 
+                below. We respond within 24-48 hours. All communications are confidential.
+              </p>
+            </div>
+            <div className="card-elevated p-8">
+              <ContactForm defaultType="help_request" />
+            </div>
+          </div>
         </div>
       </section>
     </Layout>
