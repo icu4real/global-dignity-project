@@ -3,52 +3,47 @@ import { Shield, Heart, Home, Briefcase, ArrowRight, Users, Globe, Activity } fr
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
 import heroImage from "@/assets/hero-portrait.jpg";
-
-const pillars = [
-  {
-    icon: Shield,
-    title: "Safety & Protection",
-    description: "Emergency response, legal aid, safe shelters, and relocation support for those facing immediate danger.",
-    link: "/our-work#safety",
-  },
-  {
-    icon: Heart,
-    title: "Health & Wellbeing",
-    description: "Mental health services, trauma care, HIV prevention, and accessible healthcare for all.",
-    link: "/our-work#health",
-  },
-  {
-    icon: Home,
-    title: "Dignity in Daily Life",
-    description: "Workplace safety, secure housing, education access, and privacy protection.",
-    link: "/our-work#dignity",
-  },
-  {
-    icon: Briefcase,
-    title: "Economic Inclusion",
-    description: "Job placement, skills training, and entrepreneurship support for sustainable futures.",
-    link: "/our-work#economic",
-  },
-];
-
-const impactStats = [
-  { number: "47,000+", label: "People Protected", icon: Users },
-  { number: "85", label: "Countries Reached", icon: Globe },
-  { number: "12,000+", label: "Healthcare Access", icon: Activity },
-];
-
+const pillars = [{
+  icon: Shield,
+  title: "Safety & Protection",
+  description: "Emergency response, legal aid, safe shelters, and relocation support for those facing immediate danger.",
+  link: "/our-work#safety"
+}, {
+  icon: Heart,
+  title: "Health & Wellbeing",
+  description: "Mental health services, trauma care, HIV prevention, and accessible healthcare for all.",
+  link: "/our-work#health"
+}, {
+  icon: Home,
+  title: "Dignity in Daily Life",
+  description: "Workplace safety, secure housing, education access, and privacy protection.",
+  link: "/our-work#dignity"
+}, {
+  icon: Briefcase,
+  title: "Economic Inclusion",
+  description: "Job placement, skills training, and entrepreneurship support for sustainable futures.",
+  link: "/our-work#economic"
+}];
+const impactStats = [{
+  number: "47,000+",
+  label: "People Protected",
+  icon: Users
+}, {
+  number: "85",
+  label: "Countries Reached",
+  icon: Globe
+}, {
+  number: "12,000+",
+  label: "Healthcare Access",
+  icon: Activity
+}];
 export default function HomePage() {
-  return (
-    <Layout>
+  return <Layout>
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
-          <img
-            src={heroImage}
-            alt="A person looking forward with hope and dignity"
-            className="w-full h-full object-cover object-center"
-          />
+          <img src={heroImage} alt="A person looking forward with hope and dignity" className="w-full h-full object-cover object-center" />
           <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/40" />
         </div>
 
@@ -58,12 +53,12 @@ export default function HomePage() {
             <h1 className="headline-hero text-foreground mb-6 animate-slide-up">
               No one should fear violence for being themselves.
             </h1>
-            <p className="body-large text-muted-foreground mb-8 animate-slide-up" style={{ animationDelay: "0.1s" }}>
-              Every day, LGBTQ+ individuals face persecution, violence, and discrimination 
-              simply for who they are. We provide protection, healthcare, and dignity to 
-              those who need it most—across 85 countries worldwide.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 animate-slide-up" style={{ animationDelay: "0.2s" }}>
+            <p className="body-large text-muted-foreground mb-8 animate-slide-up" style={{
+            animationDelay: "0.1s"
+          }}>Every day, LGBTQ+ individuals face persecution, violence, and discrimination simply for who they are. We provide protection, healthcare, and dignity to those who need it most across 85 countries worldwide.</p>
+            <div className="flex flex-col sm:flex-row gap-4 animate-slide-up" style={{
+            animationDelay: "0.2s"
+          }}>
               <Link to="/donate">
                 <Button className="btn-accent w-full sm:w-auto text-base">
                   Support Protection
@@ -116,13 +111,9 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {pillars.map((pillar, index) => (
-              <Link
-                key={pillar.title}
-                to={pillar.link}
-                className="card-elevated p-6 group hover:shadow-elevated transition-all duration-300 animate-slide-up"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
+            {pillars.map((pillar, index) => <Link key={pillar.title} to={pillar.link} className="card-elevated p-6 group hover:shadow-elevated transition-all duration-300 animate-slide-up" style={{
+            animationDelay: `${index * 0.1}s`
+          }}>
                 <div className="pillar-icon mb-4 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                   <pillar.icon className="w-6 h-6" />
                 </div>
@@ -136,8 +127,7 @@ export default function HomePage() {
                   Learn more
                   <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </div>
-              </Link>
-            ))}
+              </Link>)}
           </div>
         </div>
       </section>
@@ -155,8 +145,7 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {impactStats.map((stat) => (
-              <div key={stat.label} className="text-center">
+            {impactStats.map(stat => <div key={stat.label} className="text-center">
                 <div className="w-16 h-16 rounded-full bg-primary-foreground/10 flex items-center justify-center mx-auto mb-4">
                   <stat.icon className="w-8 h-8" />
                 </div>
@@ -166,8 +155,7 @@ export default function HomePage() {
                 <p className="text-primary-foreground/80">
                   {stat.label}
                 </p>
-              </div>
-            ))}
+              </div>)}
           </div>
 
           <div className="text-center mt-12">
@@ -215,11 +203,7 @@ export default function HomePage() {
             </div>
             <div className="relative">
               <div className="aspect-[4/3] rounded-lg overflow-hidden shadow-elevated">
-                <img
-                  src={heroImage}
-                  alt="A person looking forward with hope"
-                  className="w-full h-full object-cover"
-                />
+                <img src={heroImage} alt="A person looking forward with hope" className="w-full h-full object-cover" />
               </div>
               <div className="absolute -bottom-6 -left-6 bg-card p-6 rounded-lg shadow-elevated max-w-xs">
                 <p className="text-sm text-muted-foreground mb-1">Since 2015</p>
@@ -258,6 +242,5 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-    </Layout>
-  );
+    </Layout>;
 }
