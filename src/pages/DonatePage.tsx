@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
-import { Shield, Heart, Home, Briefcase, Check, AlertTriangle, ArrowRight, Lock, CreditCard } from "lucide-react";
+import { Shield, Heart, Home, Briefcase, Check, AlertTriangle, ArrowRight, Lock, Copy, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { toast } from "sonner";
+import { QRCodeSVG } from "qrcode.react";
+import { supabase } from "@/integrations/supabase/client";
+
+const SOLANA_WALLET_ADDRESS = "3DCpcAACrKMQr2uXc2T5q4KATKzaCp3TGWUrcRgQwTpY";
 
 const donationCategories = [
   {
@@ -57,6 +59,10 @@ export default function DonatePage() {
   const [amount, setAmount] = useState(50);
   const [customAmount, setCustomAmount] = useState("");
   const [showCustom, setShowCustom] = useState(false);
+  const [donorEmail, setDonorEmail] = useState("");
+  const [transactionHash, setTransactionHash] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPaymentStep, setShowPaymentStep] = useState(false);
 
   const currentAmount = showCustom ? Number(customAmount) || 0 : amount;
   const isValidAmount = currentAmount >= MIN_DONATION && currentAmount <= MAX_DONATION;
@@ -73,15 +79,59 @@ export default function DonatePage() {
     }
   };
 
-  const handleDonate = () => {
+  const handleCopyAddress = async () => {
+    try {
+      await navigator.clipboard.writeText(SOLANA_WALLET_ADDRESS);
+      toast.success("Wallet address copied to clipboard!");
+    } catch {
+      toast.error("Failed to copy address");
+    }
+  };
+
+  const handleProceedToPayment = () => {
     if (!isValidAmount) {
       toast.error(`Please enter an amount between $${MIN_DONATION} and $${MAX_DONATION}`);
       return;
     }
+    setShowPaymentStep(true);
+  };
+
+  const handleConfirmDonation = async () => {
+    if (!transactionHash.trim()) {
+      toast.error("Please enter your transaction hash to confirm your donation");
+      return;
+    }
+
+    setIsSubmitting(true);
     
-    toast.success(
-      `Thank you for your ${donationType === "monthly" ? "monthly" : ""} commitment of $${currentAmount}! You'll be redirected to complete your donation.`
-    );
+    try {
+      const { error } = await supabase.from("donations").insert({
+        wallet_address: SOLANA_WALLET_ADDRESS,
+        amount: currentAmount,
+        category: selectedCategory,
+        donation_type: donationType,
+        donor_email: donorEmail || null,
+        transaction_hash: transactionHash.trim(),
+        status: "pending",
+      });
+
+      if (error) throw error;
+
+      toast.success(
+        "Thank you for your donation! We'll verify your transaction and send you a confirmation.",
+        { duration: 6000 }
+      );
+      
+      // Reset form
+      setTransactionHash("");
+      setDonorEmail("");
+      setShowPaymentStep(false);
+    } catch (error) {
+      console.error("Error recording donation:", error);
+      toast.error("Failed to record your donation. Please try again or contact support.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const getImpactStatement = (amt: number) => {
@@ -119,161 +169,283 @@ export default function DonatePage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Main Form */}
             <div className="lg:col-span-2">
-              {/* Donation Type */}
-              <div className="mb-8">
-                <h2 className="font-serif text-2xl text-foreground mb-4">
-                  Choose your giving type
-                </h2>
-                <div className="flex gap-4">
-                  <button
-                    onClick={() => setDonationType("monthly")}
-                    className={`flex-1 p-4 rounded-lg border-2 transition-all ${
-                      donationType === "monthly"
-                        ? "border-accent bg-accent/5"
-                        : "border-border hover:border-accent/50"
-                    }`}
-                  >
-                    <p className="font-medium text-foreground">Monthly</p>
-                    <p className="text-sm text-muted-foreground">Become a Dignity Ally</p>
-                  </button>
-                  <button
-                    onClick={() => setDonationType("one-time")}
-                    className={`flex-1 p-4 rounded-lg border-2 transition-all ${
-                      donationType === "one-time"
-                        ? "border-accent bg-accent/5"
-                        : "border-border hover:border-accent/50"
-                    }`}
-                  >
-                    <p className="font-medium text-foreground">One-time</p>
-                    <p className="text-sm text-muted-foreground">Single contribution</p>
-                  </button>
-                </div>
-              </div>
+              {!showPaymentStep ? (
+                <>
+                  {/* Donation Type */}
+                  <div className="mb-8">
+                    <h2 className="font-serif text-2xl text-foreground mb-4">
+                      Choose your giving type
+                    </h2>
+                    <div className="flex gap-4">
+                      <button
+                        onClick={() => setDonationType("monthly")}
+                        className={`flex-1 p-4 rounded-lg border-2 transition-all ${
+                          donationType === "monthly"
+                            ? "border-accent bg-accent/5"
+                            : "border-border hover:border-accent/50"
+                        }`}
+                      >
+                        <p className="font-medium text-foreground">Monthly</p>
+                        <p className="text-sm text-muted-foreground">Become a Dignity Ally</p>
+                      </button>
+                      <button
+                        onClick={() => setDonationType("one-time")}
+                        className={`flex-1 p-4 rounded-lg border-2 transition-all ${
+                          donationType === "one-time"
+                            ? "border-accent bg-accent/5"
+                            : "border-border hover:border-accent/50"
+                        }`}
+                      >
+                        <p className="font-medium text-foreground">One-time</p>
+                        <p className="text-sm text-muted-foreground">Single contribution</p>
+                      </button>
+                    </div>
+                  </div>
 
-              {/* Category Selection */}
-              <div className="mb-8">
-                <h2 className="font-serif text-2xl text-foreground mb-4">
-                  Direct your support
-                </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {donationCategories.map((category) => (
-                    <button
-                      key={category.id}
-                      onClick={() => setSelectedCategory(category.id)}
-                      className={`p-4 rounded-lg border-2 text-left transition-all ${
-                        selectedCategory === category.id
-                          ? "border-accent bg-accent/5"
-                          : "border-border hover:border-accent/50"
-                      }`}
-                    >
-                      <div className="flex items-start gap-3">
-                        <div className="pillar-icon flex-shrink-0">
-                          <category.icon className="w-5 h-5" />
+                  {/* Category Selection */}
+                  <div className="mb-8">
+                    <h2 className="font-serif text-2xl text-foreground mb-4">
+                      Direct your support
+                    </h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {donationCategories.map((category) => (
+                        <button
+                          key={category.id}
+                          onClick={() => setSelectedCategory(category.id)}
+                          className={`p-4 rounded-lg border-2 text-left transition-all ${
+                            selectedCategory === category.id
+                              ? "border-accent bg-accent/5"
+                              : "border-border hover:border-accent/50"
+                          }`}
+                        >
+                          <div className="flex items-start gap-3">
+                            <div className="pillar-icon flex-shrink-0">
+                              <category.icon className="w-5 h-5" />
+                            </div>
+                            <div>
+                              <p className="font-medium text-foreground">{category.title}</p>
+                              <p className="text-sm text-muted-foreground">{category.description}</p>
+                            </div>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Amount Selection */}
+                  <div className="mb-8">
+                    <h2 className="font-serif text-2xl text-foreground mb-4">
+                      Select amount (USDT)
+                    </h2>
+                    <div className="grid grid-cols-3 sm:grid-cols-5 gap-3 mb-4">
+                      {suggestedAmounts.map((amt) => (
+                        <button
+                          key={amt}
+                          onClick={() => {
+                            setAmount(amt);
+                            setShowCustom(false);
+                            setCustomAmount("");
+                          }}
+                          className={`p-4 rounded-lg border-2 text-center transition-all ${
+                            !showCustom && amount === amt
+                              ? "border-accent bg-accent/5"
+                              : "border-border hover:border-accent/50"
+                          }`}
+                        >
+                          <p className="font-medium text-foreground">${amt}</p>
+                        </button>
+                      ))}
+                    </div>
+                    
+                    {/* Custom Amount */}
+                    <div className="flex items-center gap-4">
+                      <button
+                        onClick={() => setShowCustom(true)}
+                        className={`px-4 py-2 rounded-lg border-2 transition-all ${
+                          showCustom
+                            ? "border-accent bg-accent/5"
+                            : "border-border hover:border-accent/50"
+                        }`}
+                      >
+                        <p className="text-sm font-medium text-foreground">Custom amount</p>
+                      </button>
+                      {showCustom && (
+                        <div className="flex items-center gap-2">
+                          <span className="text-lg font-medium text-foreground">$</span>
+                          <Input
+                            type="number"
+                            value={customAmount}
+                            onChange={(e) => handleCustomAmountChange(e.target.value)}
+                            placeholder="Enter amount"
+                            min={MIN_DONATION}
+                            max={MAX_DONATION}
+                            className="w-32"
+                          />
                         </div>
+                      )}
+                    </div>
+
+                    {/* Donation Limits Notice */}
+                    <div className="mt-4 p-4 bg-muted rounded-lg">
+                      <div className="flex items-start gap-3">
+                        <AlertTriangle className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
                         <div>
-                          <p className="font-medium text-foreground">{category.title}</p>
-                          <p className="text-sm text-muted-foreground">{category.description}</p>
+                          <p className="text-sm font-medium text-foreground">
+                            Donation limits: ${MIN_DONATION} – ${MAX_DONATION} USDT
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            We limit individual donations to ensure broad-based support 
+                            and maintain donor credibility. For larger contributions, 
+                            please contact us directly.
+                          </p>
                         </div>
                       </div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Amount Selection */}
-              <div className="mb-8">
-                <h2 className="font-serif text-2xl text-foreground mb-4">
-                  Select amount
-                </h2>
-                <div className="grid grid-cols-3 sm:grid-cols-5 gap-3 mb-4">
-                  {suggestedAmounts.map((amt) => (
-                    <button
-                      key={amt}
-                      onClick={() => {
-                        setAmount(amt);
-                        setShowCustom(false);
-                        setCustomAmount("");
-                      }}
-                      className={`p-4 rounded-lg border-2 text-center transition-all ${
-                        !showCustom && amount === amt
-                          ? "border-accent bg-accent/5"
-                          : "border-border hover:border-accent/50"
-                      }`}
-                    >
-                      <p className="font-medium text-foreground">${amt}</p>
-                    </button>
-                  ))}
-                </div>
-                
-                {/* Custom Amount */}
-                <div className="flex items-center gap-4">
-                  <button
-                    onClick={() => setShowCustom(true)}
-                    className={`px-4 py-2 rounded-lg border-2 transition-all ${
-                      showCustom
-                        ? "border-accent bg-accent/5"
-                        : "border-border hover:border-accent/50"
-                    }`}
-                  >
-                    <p className="text-sm font-medium text-foreground">Custom amount</p>
-                  </button>
-                  {showCustom && (
-                    <div className="flex items-center gap-2">
-                      <span className="text-lg font-medium text-foreground">$</span>
-                      <Input
-                        type="number"
-                        value={customAmount}
-                        onChange={(e) => handleCustomAmountChange(e.target.value)}
-                        placeholder="Enter amount"
-                        min={MIN_DONATION}
-                        max={MAX_DONATION}
-                        className="w-32"
-                      />
                     </div>
-                  )}
-                </div>
 
-                {/* Donation Limits Notice */}
-                <div className="mt-4 p-4 bg-muted rounded-lg">
-                  <div className="flex items-start gap-3">
-                    <AlertTriangle className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-sm font-medium text-foreground">
-                        Donation limits: ${MIN_DONATION} – ${MAX_DONATION}
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        We limit individual donations to ensure broad-based support 
-                        and maintain donor credibility. For larger contributions, 
-                        please contact us directly.
-                      </p>
-                    </div>
+                    {/* Impact Statement */}
+                    {isValidAmount && (
+                      <div className="mt-4 p-4 bg-accent/10 rounded-lg">
+                        <p className="text-sm text-foreground">
+                          <strong>Your ${currentAmount} {donationType === "monthly" ? "monthly " : ""}gift:</strong>{" "}
+                          {getImpactStatement(currentAmount)}
+                        </p>
+                      </div>
+                    )}
                   </div>
-                </div>
 
-                {/* Impact Statement */}
-                {isValidAmount && (
-                  <div className="mt-4 p-4 bg-accent/10 rounded-lg">
-                    <p className="text-sm text-foreground">
-                      <strong>Your {currentAmount} {donationType === "monthly" ? "monthly " : ""}gift:</strong>{" "}
-                      {getImpactStatement(currentAmount)}
+                  {/* Submit */}
+                  <Button
+                    onClick={handleProceedToPayment}
+                    disabled={!isValidAmount}
+                    className="btn-accent w-full text-lg py-6"
+                  >
+                    Proceed to Payment – ${currentAmount} USDT
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </>
+              ) : (
+                /* Payment Step - USDT/Solana */
+                <div className="space-y-8">
+                  <button
+                    onClick={() => setShowPaymentStep(false)}
+                    className="text-primary hover:text-accent transition-colors text-sm flex items-center gap-1"
+                  >
+                    ← Back to selection
+                  </button>
+
+                  <div className="text-center">
+                    <h2 className="font-serif text-2xl text-foreground mb-2">
+                      Send ${currentAmount} USDT on Solana
+                    </h2>
+                    <p className="text-muted-foreground">
+                      Scan the QR code or copy the wallet address below
                     </p>
                   </div>
-                )}
-              </div>
 
-              {/* Submit */}
-              <Button
-                onClick={handleDonate}
-                disabled={!isValidAmount}
-                className="btn-accent w-full text-lg py-6"
-              >
-                {donationType === "monthly" ? "Become a Dignity Ally" : "Complete Donation"} – ${currentAmount}
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+                  {/* QR Code */}
+                  <div className="flex justify-center">
+                    <div className="bg-white p-6 rounded-xl shadow-lg">
+                      <QRCodeSVG
+                        value={`solana:${SOLANA_WALLET_ADDRESS}?amount=${currentAmount}&spl-token=Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB`}
+                        size={200}
+                        level="H"
+                        includeMargin
+                      />
+                    </div>
+                  </div>
+
+                  {/* Wallet Address */}
+                  <div className="bg-muted p-4 rounded-lg">
+                    <p className="text-sm text-muted-foreground mb-2">USDT Wallet Address (Solana Network)</p>
+                    <div className="flex items-center gap-2">
+                      <code className="flex-1 text-sm text-foreground bg-background p-3 rounded-lg break-all font-mono">
+                        {SOLANA_WALLET_ADDRESS}
+                      </code>
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={handleCopyAddress}
+                        className="flex-shrink-0"
+                      >
+                        <Copy className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </div>
+
+                  {/* Important Notice */}
+                  <div className="bg-accent/10 border border-accent/20 p-4 rounded-lg">
+                    <div className="flex items-start gap-3">
+                      <AlertTriangle className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                      <div>
+                        <p className="text-sm font-medium text-foreground mb-1">
+                          Important: Send only USDT on Solana Network
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          Sending any other token or using a different network will result in permanent loss of funds.
+                          Please ensure you're sending USDT (SPL Token) on the Solana blockchain.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Transaction Confirmation */}
+                  <div className="space-y-4">
+                    <h3 className="font-serif text-xl text-foreground">
+                      Confirm your donation
+                    </h3>
+                    
+                    <div>
+                      <label className="text-sm font-medium text-foreground mb-2 block">
+                        Email (optional - for donation receipt)
+                      </label>
+                      <Input
+                        type="email"
+                        value={donorEmail}
+                        onChange={(e) => setDonorEmail(e.target.value)}
+                        placeholder="your@email.com"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-sm font-medium text-foreground mb-2 block">
+                        Transaction Hash / Signature *
+                      </label>
+                      <Input
+                        type="text"
+                        value={transactionHash}
+                        onChange={(e) => setTransactionHash(e.target.value)}
+                        placeholder="Enter your Solana transaction hash"
+                      />
+                      <p className="text-xs text-muted-foreground mt-1">
+                        You can find this in your wallet after completing the transaction
+                      </p>
+                    </div>
+
+                    <Button
+                      onClick={handleConfirmDonation}
+                      disabled={isSubmitting || !transactionHash.trim()}
+                      className="btn-accent w-full text-lg py-6"
+                    >
+                      {isSubmitting ? "Recording..." : "Confirm Donation"}
+                      <Check className="ml-2 h-5 w-5" />
+                    </Button>
+
+                    <a
+                      href={`https://solscan.io/account/${SOLANA_WALLET_ADDRESS}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-primary hover:text-accent transition-colors flex items-center justify-center gap-1"
+                    >
+                      View wallet on Solscan
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+                </div>
+              )}
 
               <p className="text-center text-sm text-muted-foreground mt-4 flex items-center justify-center gap-2">
                 <Lock className="w-4 h-4" />
-                Secure, encrypted donation processing
+                Cryptocurrency donations are transparent and verifiable
               </p>
             </div>
 
@@ -294,22 +466,38 @@ export default function DonatePage() {
                   <li className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-accent flex-shrink-0" />
                     <span className="text-sm text-muted-foreground">
-                      Registered 501(c)(3) nonprofit
+                      Blockchain-verified transactions
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-accent flex-shrink-0" />
                     <span className="text-sm text-muted-foreground">
-                      A+ rated by independent charity evaluators
+                      Global accessibility via USDT/Solana
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-accent flex-shrink-0" />
                     <span className="text-sm text-muted-foreground">
-                      Transparent annual reporting
+                      Transparent on-chain reporting
                     </span>
                   </li>
                 </ul>
+              </div>
+
+              {/* Payment Method */}
+              <div className="bg-gradient-to-br from-[#9945FF] to-[#14F195] text-white p-6 rounded-lg mb-6">
+                <h3 className="font-serif text-lg mb-3">
+                  We accept USDT on Solana
+                </h3>
+                <p className="text-sm text-white/90 mb-4">
+                  Cryptocurrency enables fast, low-cost donations from anywhere in the world with full transparency.
+                </p>
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+                    <span className="text-xs font-bold">SOL</span>
+                  </div>
+                  <span className="text-sm">Solana Network</span>
+                </div>
               </div>
 
               {/* Monthly Benefits */}
@@ -355,15 +543,6 @@ export default function DonatePage() {
                   ))}
                 </ul>
               </div>
-
-              {/* Payment Methods */}
-              <div className="mt-6 text-center">
-                <p className="text-xs text-muted-foreground mb-2">Secure payments via</p>
-                <div className="flex items-center justify-center gap-4">
-                  <CreditCard className="w-8 h-8 text-muted-foreground" />
-                  <span className="text-sm text-muted-foreground">Credit Card • PayPal</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -395,4 +574,3 @@ export default function DonatePage() {
     </Layout>
   );
 }
-

@@ -14,7 +14,108 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      contact_submissions: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          is_read: boolean
+          message: string
+          name: string
+          subject: string | null
+          submission_type: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          is_read?: boolean
+          message: string
+          name: string
+          subject?: string | null
+          submission_type?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          is_read?: boolean
+          message?: string
+          name?: string
+          subject?: string | null
+          submission_type?: string
+        }
+        Relationships: []
+      }
+      donations: {
+        Row: {
+          amount: number
+          category: string
+          confirmed_at: string | null
+          created_at: string
+          donation_type: string
+          donor_email: string | null
+          donor_name: string | null
+          id: string
+          status: string
+          transaction_hash: string | null
+          wallet_address: string
+        }
+        Insert: {
+          amount: number
+          category: string
+          confirmed_at?: string | null
+          created_at?: string
+          donation_type: string
+          donor_email?: string | null
+          donor_name?: string | null
+          id?: string
+          status?: string
+          transaction_hash?: string | null
+          wallet_address: string
+        }
+        Update: {
+          amount?: number
+          category?: string
+          confirmed_at?: string | null
+          created_at?: string
+          donation_type?: string
+          donor_email?: string | null
+          donor_name?: string | null
+          id?: string
+          status?: string
+          transaction_hash?: string | null
+          wallet_address?: string
+        }
+        Relationships: []
+      }
+      email_subscriptions: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          is_active: boolean
+          subscription_type: string
+          unsubscribed_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          is_active?: boolean
+          subscription_type?: string
+          unsubscribed_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          is_active?: boolean
+          subscription_type?: string
+          unsubscribed_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
