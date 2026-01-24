@@ -4,8 +4,8 @@ import { Shield, Heart, Home, Briefcase, Check, AlertTriangle, ArrowRight, Lock,
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-import { QRCodeSVG } from "qrcode.react";
 import { supabase } from "@/integrations/supabase/client";
+import solanaWalletQR from "@/assets/solana-wallet-qr.jpeg";
 
 const SOLANA_WALLET_ADDRESS = "3DCpcAACrKMQr2uXc2T5q4KATKzaCp3TGWUrcRgQwTpY";
 
@@ -344,12 +344,11 @@ export default function DonatePage() {
 
                   {/* QR Code */}
                   <div className="flex justify-center">
-                    <div className="bg-white p-6 rounded-xl shadow-lg">
-                      <QRCodeSVG
-                        value={`solana:${SOLANA_WALLET_ADDRESS}?amount=${currentAmount}&spl-token=Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB`}
-                        size={200}
-                        level="H"
-                        includeMargin
+                    <div className="bg-black p-4 rounded-xl shadow-lg">
+                      <img
+                        src={solanaWalletQR}
+                        alt="Solana USDT Wallet QR Code"
+                        className="w-52 h-52 object-contain"
                       />
                     </div>
                   </div>
