@@ -6,10 +6,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import OurWorkPage from "./pages/OurWorkPage";
-import StoriesPage from "./pages/StoriesPage";
 import ImpactPage from "./pages/ImpactPage";
 import GetHelpPage from "./pages/GetHelpPage";
 import DonatePage from "./pages/DonatePage";
+import PrivacyPage from "./pages/PrivacyPage";
+import TermsPage from "./pages/TermsPage";
+import TransparencyPage from "./pages/TransparencyPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,11 +26,12 @@ const App = () => (
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/our-work" element={<OurWorkPage />} />
-          <Route path="/stories" element={<StoriesPage />} />
           <Route path="/impact" element={<ImpactPage />} />
           <Route path="/get-help" element={<GetHelpPage />} />
           <Route path="/donate" element={<DonatePage />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/terms" element={<TermsPage />} />
+          <Route path="/transparency" element={<TransparencyPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

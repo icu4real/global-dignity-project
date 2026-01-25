@@ -1,18 +1,16 @@
 import { Link } from "react-router-dom";
-import { Heart, Mail, Shield, Globe } from "lucide-react";
+import { Mail } from "lucide-react";
 import { EmailSubscription } from "@/components/EmailSubscription";
 
 const footerLinks = {
   organization: [
     { name: "About Us", href: "/about" },
     { name: "Our Work", href: "/our-work" },
-    { name: "Impact Report", href: "/impact" },
-    { name: "Stories", href: "/stories" },
+    { name: "Impact & Transparency", href: "/impact" },
   ],
   support: [
-    { name: "Donate", href: "/donate" },
-    { name: "Get Help", href: "/get-help" },
-    { name: "Partner With Us", href: "/about#partners" },
+    { name: "Contribute", href: "/donate" },
+    { name: "Resources", href: "/get-help" },
   ],
   legal: [
     { name: "Privacy Policy", href: "/privacy" },
@@ -21,44 +19,31 @@ const footerLinks = {
   ],
 };
 
-const certifications = [
-  { name: "Verified Nonprofit", icon: Shield },
-  { name: "Global Reach", icon: Globe },
-];
-
 export function Footer() {
   return (
     <footer className="bg-primary text-primary-foreground">
+      {/* Subtle pride gradient line */}
+      <div className="h-[3px] bg-gradient-to-r from-[hsl(0,65%,55%)] via-[hsl(145,55%,42%)] to-[hsl(280,55%,50%)] opacity-40" />
+      
       <div className="container-campaign section-padding">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center">
-                <Heart className="w-5 h-5 text-primary-foreground" />
+            <Link to="/" className="flex items-center gap-3 mb-6">
+              <div className="w-8 h-8 rounded-sm bg-primary-foreground/10 flex items-center justify-center">
+                <span className="text-primary-foreground font-serif font-semibold text-lg">P</span>
               </div>
-              <span className="font-serif text-xl">Dignity Global</span>
+              <span className="font-serif text-xl tracking-tight">Pride Campaign</span>
             </Link>
-            <p className="text-primary-foreground/80 text-sm leading-relaxed mb-6">
-              Protecting lives, restoring dignity, and building hope for LGBTQ+ 
-              individuals facing violence and persecution worldwide.
+            <p className="text-primary-foreground/70 text-sm leading-relaxed">
+              Advancing equality, dignity, and human rights through education, 
+              advocacy, and community support worldwide.
             </p>
-            <div className="flex items-center gap-4">
-              {certifications.map((cert) => (
-                <div
-                  key={cert.name}
-                  className="flex items-center gap-2 text-xs text-primary-foreground/70"
-                >
-                  <cert.icon className="w-4 h-4" />
-                  <span>{cert.name}</span>
-                </div>
-              ))}
-            </div>
           </div>
 
           {/* Organization Links */}
           <div>
-            <h4 className="font-medium mb-4">Organization</h4>
+            <h4 className="font-medium mb-4 text-sm uppercase tracking-wider text-primary-foreground/50">Organization</h4>
             <ul className="space-y-3">
               {footerLinks.organization.map((link) => (
                 <li key={link.name}>
@@ -75,7 +60,7 @@ export function Footer() {
 
           {/* Support Links */}
           <div>
-            <h4 className="font-medium mb-4">Support</h4>
+            <h4 className="font-medium mb-4 text-sm uppercase tracking-wider text-primary-foreground/50">Support</h4>
             <ul className="space-y-3">
               {footerLinks.support.map((link) => (
                 <li key={link.name}>
@@ -92,7 +77,7 @@ export function Footer() {
 
           {/* Legal & Contact */}
           <div>
-            <h4 className="font-medium mb-4">Legal</h4>
+            <h4 className="font-medium mb-4 text-sm uppercase tracking-wider text-primary-foreground/50">Legal</h4>
             <ul className="space-y-3 mb-6">
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>
@@ -106,21 +91,21 @@ export function Footer() {
               ))}
             </ul>
             <a
-              href="mailto:contact@dignityglobal.org"
+              href="mailto:contact@pridecampaign.org"
               className="inline-flex items-center gap-2 text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
             >
               <Mail className="w-4 h-4" />
-              contact@dignityglobal.org
+              contact@pridecampaign.org
             </a>
           </div>
         </div>
 
         {/* Newsletter Subscription */}
-        <div className="mt-12 pt-8 border-t border-primary-foreground/10">
+        <div className="mt-16 pt-8 border-t border-primary-foreground/10">
           <div className="max-w-md mx-auto text-center mb-6">
-            <h4 className="font-serif text-lg mb-2">Stay informed</h4>
-            <p className="text-sm text-primary-foreground/70">
-              Get quarterly impact reports and stories from the field
+            <h4 className="font-serif text-lg mb-2">Stay Informed</h4>
+            <p className="text-sm text-primary-foreground/60">
+              Receive quarterly updates on our global initiatives
             </p>
           </div>
           <div className="max-w-md mx-auto">
@@ -135,10 +120,10 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-primary-foreground/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-primary-foreground/60">
-              © {new Date().getFullYear()} Dignity Global. All rights reserved.
+            <p className="text-sm text-primary-foreground/50">
+              © {new Date().getFullYear()} Pride Campaign. All rights reserved.
             </p>
-            <p className="text-sm text-primary-foreground/60">
+            <p className="text-sm text-primary-foreground/50">
               Registered 501(c)(3) nonprofit organization
             </p>
           </div>
