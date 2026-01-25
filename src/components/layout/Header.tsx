@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Heart } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navigation = [
   { name: "About", href: "/about" },
   { name: "Our Work", href: "/our-work" },
-  { name: "Stories", href: "/stories" },
   { name: "Impact", href: "/impact" },
-  { name: "Get Help", href: "/get-help" },
+  { name: "Resources", href: "/get-help" },
 ];
 
 export function Header() {
@@ -16,21 +15,24 @@ export function Header() {
   const location = useLocation();
 
   return (
-    <header className="bg-background/95 backdrop-blur-sm border-b border-border sticky top-0 z-50">
+    <header className="bg-background border-b border-border sticky top-0 z-50">
+      {/* Subtle pride gradient line */}
+      <div className="h-[3px] bg-gradient-to-r from-[hsl(0,65%,55%)] via-[hsl(145,55%,42%)] to-[hsl(280,55%,50%)] opacity-60" />
+      
       <nav className="container-campaign" aria-label="Global">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-              <Heart className="w-5 h-5 text-primary-foreground" />
+          <Link to="/" className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-sm bg-primary flex items-center justify-center">
+              <span className="text-primary-foreground font-serif font-semibold text-lg">P</span>
             </div>
-            <span className="font-serif text-xl text-foreground">
-              Dignity Global
+            <span className="font-serif text-xl tracking-tight text-foreground">
+              Pride Campaign
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-10">
             {navigation.map((item) => (
               <Link
                 key={item.name}
@@ -49,8 +51,8 @@ export function Header() {
           {/* CTA Button */}
           <div className="hidden md:flex items-center gap-4">
             <Link to="/donate">
-              <Button className="btn-accent">
-                Support Protection
+              <Button className="btn-primary">
+                Contribute
               </Button>
             </Link>
           </div>
@@ -89,8 +91,8 @@ export function Header() {
                 </Link>
               ))}
               <Link to="/donate" onClick={() => setMobileMenuOpen(false)}>
-                <Button className="btn-accent w-full mt-4">
-                  Support Protection
+                <Button className="btn-primary w-full mt-4">
+                  Contribute
                 </Button>
               </Link>
             </div>
