@@ -92,17 +92,17 @@ export default function GetHelpPage() {
   return (
     <Layout>
       {/* Hero */}
-      <section className="section-padding bg-secondary">
+      <section className="section-padding pride-gradient-subtle">
         <div className="container-campaign">
           <div className="max-w-3xl">
-            <p className="text-sm font-medium text-accent uppercase tracking-wider mb-4">
-              Get Help
+            <p className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-4">
+              Resources
             </p>
             <h1 className="headline-hero text-foreground mb-6">
               You are not alone
             </h1>
             <p className="body-large text-muted-foreground">
-              Whether you're facing an immediate crisis or looking for resources, 
+              Whether you're seeking resources, information, or support, 
               we're here to help. All communications are confidential and secure.
             </p>
           </div>
@@ -110,7 +110,8 @@ export default function GetHelpPage() {
       </section>
 
       {/* Safety Notice */}
-      <section className="py-6 bg-primary text-primary-foreground">
+      <section className="py-6 bg-primary text-primary-foreground relative overflow-hidden">
+        <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[hsl(0,65%,55%)] via-[hsl(145,55%,42%)] to-[hsl(280,55%,50%)] opacity-30" />
         <div className="container-campaign">
           <div className="flex items-center gap-4">
             <Lock className="w-6 h-6 flex-shrink-0" />
@@ -164,7 +165,7 @@ export default function GetHelpPage() {
       </section>
 
       {/* Resource Categories */}
-      <section className="section-padding bg-cream">
+      <section className="section-padding bg-secondary">
         <div className="container-campaign">
           <div className="text-center mb-12">
             <h2 className="headline-section text-foreground mb-4">
@@ -175,10 +176,16 @@ export default function GetHelpPage() {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {resourceCategories.map((category) => (
-              <div key={category.title} className="bg-background p-6 rounded-lg">
-                <div className="pillar-icon mb-4">
-                  <category.icon className="w-5 h-5" />
+            {resourceCategories.map((category, index) => (
+              <div key={category.title} className="bg-background p-6 rounded-lg border border-border relative overflow-hidden">
+                <div 
+                  className="absolute top-0 left-0 right-0 h-[3px] opacity-40"
+                  style={{
+                    background: `linear-gradient(90deg, hsl(${index * 70} 55% 50%), hsl(${(index + 1) * 70} 55% 50%))`
+                  }}
+                />
+                <div className="w-10 h-10 rounded-md bg-secondary flex items-center justify-center mb-4">
+                  <category.icon className="w-5 h-5 text-primary" />
                 </div>
                 <h3 className="font-serif text-xl text-foreground mb-4">
                   {category.title}

@@ -3,9 +3,19 @@ import { Layout } from "@/components/layout/Layout";
 export default function PrivacyPage() {
   return (
     <Layout>
+      <section className="section-padding pride-gradient-subtle">
+        <div className="container-campaign max-w-3xl">
+          <p className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-4">Legal</p>
+          <h1 className="headline-hero text-foreground mb-6">Privacy Policy</h1>
+          <p className="body-large text-muted-foreground">Your privacy is important to us. This policy explains how we protect your information.</p>
+        </div>
+      </section>
+      
+      {/* Pride accent line */}
+      <div className="h-[3px] bg-gradient-to-r from-[hsl(0,65%,55%)] via-[hsl(145,55%,42%)] to-[hsl(280,55%,50%)] opacity-40" />
+      
       <section className="section-padding">
         <div className="container-campaign max-w-3xl">
-          <h1 className="headline-hero text-foreground mb-8">Privacy Policy</h1>
           <div className="prose prose-lg max-w-none text-muted-foreground space-y-6">
             <p><strong>Last Updated:</strong> January 2025</p>
             <p>Pride Campaign ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information.</p>

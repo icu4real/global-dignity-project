@@ -56,21 +56,21 @@ export default function AboutPage() {
   return (
     <Layout>
       {/* Hero */}
-      <section className="section-padding bg-secondary">
+      <section className="section-padding pride-gradient-subtle">
         <div className="container-campaign">
           <div className="max-w-3xl">
-            <p className="text-sm font-medium text-accent uppercase tracking-wider mb-4">
+            <p className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-4">
               About Us
             </p>
             <h1 className="headline-hero text-foreground mb-6">
               Protecting dignity across borders
             </h1>
             <p className="body-large text-muted-foreground">
-              Founded in 2015, Dignity Global is an international humanitarian 
-              organization dedicated to protecting LGBTQ+ individuals facing 
-              violence, persecution, and discrimination. We work in partnership 
-              with local organizations across 85 countries to provide emergency 
-              response, healthcare, legal aid, and pathways to safety.
+              Founded in 2010, Pride Campaign is an international humanitarian 
+              organization dedicated to advancing equality and protecting the 
+              dignity of all individuals. We work in partnership with local 
+              organizations across 85 countries to provide education, advocacy, 
+              legal support, and pathways to full social inclusion.
             </p>
           </div>
         </div>
@@ -80,21 +80,21 @@ export default function AboutPage() {
       <section className="section-padding">
         <div className="container-campaign">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div className="card-elevated p-8">
+            <div className="card-elevated p-8 relative overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[hsl(var(--pride-red))] via-[hsl(var(--pride-green))] to-[hsl(var(--pride-purple))] opacity-60" />
               <h2 className="font-serif text-2xl text-foreground mb-4">Our Mission</h2>
               <p className="text-muted-foreground leading-relaxed">
-                To protect the lives, health, and dignity of LGBTQ+ individuals 
-                facing persecution worldwide, through emergency response, healthcare 
-                access, legal support, and sustainable pathways to safety and 
-                self-sufficiency.
+                To advance equality and protect the dignity of all individuals 
+                worldwide, through education, advocacy, legal protection, and 
+                sustainable pathways to full social inclusion and community support.
               </p>
             </div>
-            <div className="card-elevated p-8">
+            <div className="card-elevated p-8 relative overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[hsl(var(--pride-purple))] via-[hsl(var(--pride-blue))] to-[hsl(var(--pride-green))] opacity-60" />
               <h2 className="font-serif text-2xl text-foreground mb-4">Our Vision</h2>
               <p className="text-muted-foreground leading-relaxed">
-                A world where every person—regardless of sexual orientation or 
-                gender identity—can live freely, safely, and with full dignity, 
-                without fear of violence or discrimination.
+                A world where every person can live freely, safely, and with 
+                full dignity, with equal rights and protection under the law.
               </p>
             </div>
           </div>
@@ -102,16 +102,22 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="section-padding bg-cream">
+      <section className="section-padding bg-secondary">
         <div className="container-campaign">
           <div className="text-center mb-12">
             <h2 className="headline-section text-foreground">Our Values</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {values.map((value) => (
-              <div key={value.title} className="text-center">
-                <div className="pillar-icon mx-auto mb-4">
-                  <value.icon className="w-6 h-6" />
+            {values.map((value, index) => (
+              <div key={value.title} className="text-center p-6 bg-card rounded-md border border-border relative overflow-hidden">
+                <div 
+                  className="absolute top-0 left-0 right-0 h-[3px] opacity-50"
+                  style={{
+                    background: `linear-gradient(90deg, hsl(${index * 70} 55% 50%), hsl(${(index + 1) * 70} 55% 50%))`
+                  }}
+                />
+                <div className="w-12 h-12 rounded-md bg-secondary flex items-center justify-center mx-auto mb-4">
+                  <value.icon className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="font-serif text-xl text-foreground mb-2">
                   {value.title}

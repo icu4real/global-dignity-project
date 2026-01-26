@@ -73,10 +73,10 @@ export default function ImpactPage() {
   return (
     <Layout>
       {/* Hero */}
-      <section className="section-padding bg-secondary">
+      <section className="section-padding pride-gradient-subtle">
         <div className="container-campaign">
           <div className="max-w-3xl">
-            <p className="text-sm font-medium text-accent uppercase tracking-wider mb-4">
+            <p className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-4">
               Our Impact
             </p>
             <h1 className="headline-hero text-foreground mb-6">
@@ -84,8 +84,8 @@ export default function ImpactPage() {
             </h1>
             <p className="body-large text-muted-foreground">
               We believe in rigorous measurement and transparent reporting. 
-              These numbers represent real people whose lives have been 
-              transformed through protection, healthcare, and restored dignity.
+              These numbers represent real progress toward equality and 
+              dignity for communities worldwide.
             </p>
           </div>
         </div>
@@ -95,14 +95,20 @@ export default function ImpactPage() {
       <section className="section-padding">
         <div className="container-campaign">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {keyMetrics.map((metric) => (
-              <div key={metric.label} className="card-elevated p-6 text-center">
-                <div className="pillar-icon mx-auto mb-4">
-                  <metric.icon className="w-6 h-6" />
+            {keyMetrics.map((metric, index) => (
+              <div key={metric.label} className="card-elevated p-6 text-center relative overflow-hidden">
+                <div 
+                  className="absolute top-0 left-0 right-0 h-[3px] opacity-50"
+                  style={{
+                    background: `linear-gradient(90deg, hsl(${index * 60} 55% 50%), hsl(${(index + 1) * 60} 55% 50%))`
+                  }}
+                />
+                <div className="w-12 h-12 rounded-md bg-secondary flex items-center justify-center mx-auto mb-4">
+                  <metric.icon className="w-6 h-6 text-primary" />
                 </div>
                 <p className="stat-number mb-1">{metric.number}</p>
                 <p className="font-medium text-foreground mb-2">{metric.label}</p>
-                <p className="text-sm text-accent flex items-center justify-center">
+                <p className="text-sm text-primary/80 flex items-center justify-center">
                   <TrendingUp className="w-4 h-4 mr-1" />
                   {metric.growth}
                 </p>
@@ -113,7 +119,7 @@ export default function ImpactPage() {
       </section>
 
       {/* Program Metrics */}
-      <section className="section-padding bg-cream">
+      <section className="section-padding bg-secondary">
         <div className="container-campaign">
           <div className="text-center mb-12">
             <h2 className="headline-section text-foreground mb-4">
@@ -124,11 +130,17 @@ export default function ImpactPage() {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {programMetrics.map((program) => (
-              <div key={program.title} className="bg-background p-6 rounded-lg">
+            {programMetrics.map((program, index) => (
+              <div key={program.title} className="bg-background p-6 rounded-lg border border-border relative overflow-hidden">
+                <div 
+                  className="absolute top-0 left-0 right-0 h-[3px] opacity-40"
+                  style={{
+                    background: `linear-gradient(90deg, hsl(${index * 70} 55% 50%), hsl(${(index + 2) * 70} 55% 50%))`
+                  }}
+                />
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="pillar-icon">
-                    <program.icon className="w-5 h-5" />
+                  <div className="w-10 h-10 rounded-md bg-secondary flex items-center justify-center">
+                    <program.icon className="w-5 h-5 text-primary" />
                   </div>
                   <h3 className="font-serif text-xl text-foreground">
                     {program.title}

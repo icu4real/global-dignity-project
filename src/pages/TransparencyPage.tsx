@@ -15,19 +15,25 @@ export default function TransparencyPage() {
           </div>
         </div>
       </section>
+      
+      {/* Pride accent line */}
+      <div className="h-[3px] bg-gradient-to-r from-[hsl(0,65%,55%)] via-[hsl(45,75%,55%)] via-[hsl(145,55%,42%)] via-[hsl(210,65%,50%)] to-[hsl(280,55%,50%)] opacity-40" />
 
       <section className="section-padding">
         <div className="container-campaign">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            <div className="text-center p-8 bg-card border border-border rounded-md">
+            <div className="text-center p-8 bg-card border border-border rounded-md relative overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[hsl(0,65%,55%)] to-[hsl(25,70%,55%)] opacity-50" />
               <p className="text-4xl font-semibold text-primary mb-2" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>92%</p>
               <p className="text-sm text-muted-foreground">Direct to Programs</p>
             </div>
-            <div className="text-center p-8 bg-card border border-border rounded-md">
+            <div className="text-center p-8 bg-card border border-border rounded-md relative overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[hsl(145,55%,42%)] to-[hsl(210,65%,50%)] opacity-50" />
               <p className="text-4xl font-semibold text-primary mb-2" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>15</p>
               <p className="text-sm text-muted-foreground">Years of Clean Audits</p>
             </div>
-            <div className="text-center p-8 bg-card border border-border rounded-md">
+            <div className="text-center p-8 bg-card border border-border rounded-md relative overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[hsl(210,65%,50%)] to-[hsl(280,55%,50%)] opacity-50" />
               <p className="text-4xl font-semibold text-primary mb-2" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>A+</p>
               <p className="text-sm text-muted-foreground">Charity Rating</p>
             </div>
