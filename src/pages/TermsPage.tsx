@@ -3,9 +3,19 @@ import { Layout } from "@/components/layout/Layout";
 export default function TermsPage() {
   return (
     <Layout>
+      <section className="section-padding pride-gradient-subtle">
+        <div className="container-campaign max-w-3xl">
+          <p className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-4">Legal</p>
+          <h1 className="headline-hero text-foreground mb-6">Terms of Use</h1>
+          <p className="body-large text-muted-foreground">Please review these terms carefully before using our services.</p>
+        </div>
+      </section>
+      
+      {/* Pride accent line */}
+      <div className="h-[3px] bg-gradient-to-r from-[hsl(210,65%,50%)] via-[hsl(145,55%,42%)] to-[hsl(45,75%,55%)] opacity-40" />
+      
       <section className="section-padding">
         <div className="container-campaign max-w-3xl">
-          <h1 className="headline-hero text-foreground mb-8">Terms of Use</h1>
           <div className="prose prose-lg max-w-none text-muted-foreground space-y-6">
             <p><strong>Last Updated:</strong> January 2025</p>
             <p>These Terms of Use govern your access to and use of the Pride Campaign website and services.</p>

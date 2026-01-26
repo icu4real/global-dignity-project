@@ -447,49 +447,55 @@ export default function DonatePage() {
             <div className="lg:col-span-1">
               <div className="sticky top-24 space-y-6">
                 {/* Summary Card */}
-                <div className="bg-card border border-border rounded-md p-6">
-                  <h3 className="font-serif text-lg text-foreground mb-4">
-                    Contribution Summary
-                  </h3>
-                  <div className="space-y-3 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Type</span>
-                      <span className="text-foreground capitalize">{contributionType}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Designation</span>
-                      <span className="text-foreground">
-                        {contributionCategories.find(c => c.id === selectedCategory)?.title}
-                      </span>
-                    </div>
-                    <div className="flex justify-between pt-3 border-t border-border">
-                      <span className="font-medium text-foreground">Total</span>
-                      <span className="font-medium text-foreground">{formatCurrency(currentAmount)} USDT</span>
+                <div className="bg-card border border-border rounded-md overflow-hidden relative">
+                  <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[hsl(0,65%,55%)] via-[hsl(45,75%,55%)] via-[hsl(145,55%,42%)] to-[hsl(280,55%,50%)] opacity-50" />
+                  <div className="p-6">
+                    <h3 className="font-serif text-lg text-foreground mb-4">
+                      Contribution Summary
+                    </h3>
+                    <div className="space-y-3 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Type</span>
+                        <span className="text-foreground capitalize">{contributionType}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Designation</span>
+                        <span className="text-foreground">
+                          {contributionCategories.find(c => c.id === selectedCategory)?.title}
+                        </span>
+                      </div>
+                      <div className="flex justify-between pt-3 border-t border-border">
+                        <span className="font-medium text-foreground">Total</span>
+                        <span className="font-medium text-foreground">{formatCurrency(currentAmount)} USDT</span>
+                      </div>
                     </div>
                   </div>
                 </div>
 
                 {/* Trust Indicators */}
-                <div className="bg-secondary rounded-md p-6">
-                  <h4 className="font-medium text-foreground mb-4 text-sm uppercase tracking-wider">Our Commitment</h4>
-                  <ul className="space-y-3 text-sm text-muted-foreground">
-                    <li className="flex items-start gap-2">
-                      <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                      <span>92% of funds go directly to programs</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                      <span>Annual independent audits</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                      <span>Tax-deductible contribution</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                      <span>Contribution receipt provided</span>
-                    </li>
-                  </ul>
+                <div className="bg-secondary rounded-md overflow-hidden relative">
+                  <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[hsl(210,65%,50%)] via-[hsl(145,55%,42%)] to-[hsl(45,75%,55%)] opacity-40" />
+                  <div className="p-6">
+                    <h4 className="font-medium text-foreground mb-4 text-sm uppercase tracking-wider">Our Commitment</h4>
+                    <ul className="space-y-3 text-sm text-muted-foreground">
+                      <li className="flex items-start gap-2">
+                        <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                        <span>92% of funds go directly to programs</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                        <span>Annual independent audits</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                        <span>Tax-deductible contribution</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                        <span>Contribution receipt provided</span>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>

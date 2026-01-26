@@ -84,10 +84,10 @@ export default function OurWorkPage() {
   return (
     <Layout>
       {/* Hero */}
-      <section className="section-padding bg-secondary">
+      <section className="section-padding pride-gradient-subtle">
         <div className="container-campaign">
           <div className="max-w-3xl">
-            <p className="text-sm font-medium text-accent uppercase tracking-wider mb-4">
+            <p className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-4">
               Our Work
             </p>
             <h1 className="headline-hero text-foreground mb-6">
@@ -95,8 +95,8 @@ export default function OurWorkPage() {
             </h1>
             <p className="body-large text-muted-foreground">
               Our integrated approach addresses the full spectrum of needs 
-              facing LGBTQ+ individuals in crisis—from immediate safety to 
-              long-term stability and self-sufficiency.
+              facing communities worldwide—from immediate safety to long-term 
+              stability and full social inclusion.
             </p>
           </div>
         </div>
@@ -107,14 +107,14 @@ export default function OurWorkPage() {
         <section
           key={pillar.id}
           id={pillar.id}
-          className={`section-padding ${index % 2 === 1 ? "bg-cream" : ""}`}
+          className={`section-padding ${index % 2 === 1 ? "bg-secondary" : ""}`}
         >
           <div className="container-campaign">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
               {/* Content */}
               <div className={index % 2 === 1 ? "lg:order-2" : ""}>
-                <div className="pillar-icon mb-6">
-                  <pillar.icon className="w-6 h-6" />
+                <div className="w-12 h-12 rounded-md bg-secondary flex items-center justify-center mb-6">
+                  <pillar.icon className="w-6 h-6 text-primary" />
                 </div>
                 <h2 className="headline-section text-foreground mb-4">
                   {pillar.title}
@@ -125,12 +125,13 @@ export default function OurWorkPage() {
                 <ul className="space-y-3 mb-8">
                   {pillar.details.map((detail) => (
                     <li key={detail} className="flex items-start gap-3">
-                      <Check className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                      <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                       <span className="text-foreground">{detail}</span>
                     </li>
                   ))}
                 </ul>
-                <div className="card-elevated p-6">
+                <div className="card-elevated p-6 relative overflow-hidden">
+                  <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[hsl(var(--pride-red))] via-[hsl(var(--pride-yellow))] to-[hsl(var(--pride-blue))] opacity-50" />
                   <p className="stat-number mb-1">{pillar.stat.number}</p>
                   <p className="text-muted-foreground">{pillar.stat.label}</p>
                 </div>
@@ -138,8 +139,9 @@ export default function OurWorkPage() {
 
               {/* Story Card */}
               <div className={index % 2 === 1 ? "lg:order-1" : ""}>
-                <div className="bg-primary text-primary-foreground p-8 rounded-lg">
-                  <p className="text-sm font-medium text-accent uppercase tracking-wider mb-4">
+                <div className="bg-primary text-primary-foreground p-8 rounded-lg relative overflow-hidden">
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[hsl(0,65%,55%)] via-[hsl(145,55%,42%)] to-[hsl(280,55%,50%)] opacity-40" />
+                  <p className="text-sm font-medium text-primary-foreground/60 uppercase tracking-wider mb-4">
                     Real Impact
                   </p>
                   <blockquote className="text-xl leading-relaxed mb-6 italic">
