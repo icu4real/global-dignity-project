@@ -11,24 +11,14 @@ const SOLANA_WALLET_ADDRESS = "3DCpcAACrKMQr2uXc2T5q4KATKzaCp3TGWUrcRgQwTpY";
 
 const contributionCategories = [
   {
-    id: "general",
-    title: "General Fund",
-    description: "Support where it's needed most",
-  },
-  {
     id: "legal",
     title: "Legal Protection",
-    description: "Rights advocacy and legal support",
+    description: "Rights advocacy, legal defense, and policy reform",
   },
   {
-    id: "education",
-    title: "Education & Advocacy",
-    description: "Research and public awareness",
-  },
-  {
-    id: "community",
-    title: "Community Support",
-    description: "Direct community programs",
+    id: "safety",
+    title: "Physical Safety & Emergency",
+    description: "Crisis response, relocation, and protective services",
   },
 ];
 
