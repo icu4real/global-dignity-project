@@ -25,30 +25,34 @@ const values = [
 ];
 
 const partners = [
-  { name: "International Health Partners", type: "Healthcare" },
-  { name: "Global Legal Aid Network", type: "Legal Services" },
-  { name: "Safe Housing Coalition", type: "Shelter & Relocation" },
-  { name: "Mental Health Without Borders", type: "Mental Health" },
-  { name: "Economic Empowerment Alliance", type: "Employment" },
-  { name: "Digital Safety Initiative", type: "Privacy & Security" },
+  { name: "ILGA World", type: "Global Advocacy Network" },
+  { name: "OutRight Action International", type: "Human Rights & UN Advocacy" },
+  { name: "Lambda Legal", type: "Legal Defense & Education" },
+  { name: "Human Rights Watch", type: "Research & Documentation" },
+  { name: "Amnesty International", type: "Emergency Protection" },
+  { name: "Rainbow Railroad", type: "Emergency Relocation" },
 ];
 
 const team = [
   {
+    name: "Dr. Sarah Chen",
     role: "Executive Director",
-    description: "25+ years in international humanitarian work",
+    description: "Former UNHCR Senior Protection Advisor with 25+ years in international humanitarian law and refugee resettlement.",
   },
   {
-    role: "Director of Programs",
-    description: "Former UNHCR protection officer",
+    name: "Marcus Okonkwo",
+    role: "Director of Global Programs",
+    description: "Previously led human rights initiatives at Human Rights Watch across 40+ countries in Africa and Asia.",
   },
   {
-    role: "Medical Director",
-    description: "Public health specialist, infectious diseases",
+    name: "Dr. Elena Vásquez",
+    role: "Chief Medical Officer",
+    description: "Public health specialist from Médecins Sans Frontières with expertise in trauma-informed care.",
   },
   {
+    name: "James Hartley, JD",
     role: "Legal Director",
-    description: "Human rights attorney, asylum law expert",
+    description: "Former Lambda Legal senior counsel specializing in asylum law and international human rights litigation.",
   },
 ];
 
@@ -143,11 +147,12 @@ export default function AboutPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {team.map((member) => (
-              <div key={member.role} className="card-elevated p-6 text-center">
+              <div key={member.name} className="card-elevated p-6 text-center">
                 <div className="w-16 h-16 rounded-full bg-secondary mx-auto mb-4 flex items-center justify-center">
                   <Users className="w-8 h-8 text-primary" />
                 </div>
-                <h3 className="font-medium text-foreground mb-1">{member.role}</h3>
+                <h3 className="font-semibold text-foreground">{member.name}</h3>
+                <p className="text-sm font-medium text-primary mb-2">{member.role}</p>
                 <p className="text-sm text-muted-foreground">{member.description}</p>
               </div>
             ))}
