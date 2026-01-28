@@ -1,5 +1,7 @@
 import { Layout } from "@/components/layout/Layout";
-import { Shield, Users, Globe, Award, Heart, Building } from "lucide-react";
+import { Shield, Globe, Award, Heart } from "lucide-react";
+import { LeadershipSection } from "@/components/about/LeadershipSection";
+import { PartnersSection } from "@/components/about/PartnersSection";
 
 const values = [
   {
@@ -24,39 +26,15 @@ const values = [
   },
 ];
 
-const partners = [
-  { name: "ILGA World", type: "Global Advocacy Network" },
-  { name: "OutRight Action International", type: "Human Rights & UN Advocacy" },
-  { name: "Lambda Legal", type: "Legal Defense & Education" },
-  { name: "Human Rights Watch", type: "Research & Documentation" },
-  { name: "Amnesty International", type: "Emergency Protection" },
-  { name: "Rainbow Railroad", type: "Emergency Relocation" },
-];
-
-const team = [
-  {
-    name: "Dr. Sarah Chen",
-    role: "Executive Director",
-    description: "Former UNHCR Senior Protection Advisor with 25+ years in international humanitarian law and refugee resettlement.",
-  },
-  {
-    name: "Marcus Okonkwo",
-    role: "Director of Global Programs",
-    description: "Previously led human rights initiatives at Human Rights Watch across 40+ countries in Africa and Asia.",
-  },
-  {
-    name: "Dr. Elena Vásquez",
-    role: "Chief Medical Officer",
-    description: "Public health specialist from Médecins Sans Frontières with expertise in trauma-informed care.",
-  },
-  {
-    name: "James Hartley, JD",
-    role: "Legal Director",
-    description: "Former Lambda Legal senior counsel specializing in asylum law and international human rights litigation.",
-  },
-];
-
 export default function AboutPage() {
+  // To add leader photos, import them and pass them here:
+  // import sarahChen from "@/assets/leaders/sarah-chen.jpg";
+  // const leaderImages = { sarahChen, ... };
+  
+  // To add partner logos, import them and pass them here:
+  // import ilgaWorld from "@/assets/partners/ilga-world.png";
+  // const partnerLogos = { ilgaWorld, ... };
+
   return (
     <Layout>
       {/* Hero */}
@@ -136,58 +114,10 @@ export default function AboutPage() {
       </section>
 
       {/* Leadership */}
-      <section className="section-padding">
-        <div className="container-campaign">
-          <div className="text-center mb-12">
-            <h2 className="headline-section text-foreground mb-4">Leadership</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Our leadership team brings decades of experience in humanitarian 
-              response, public health, human rights law, and international development.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {team.map((member) => (
-              <div key={member.name} className="card-elevated p-6 text-center">
-                <div className="w-16 h-16 rounded-full bg-secondary mx-auto mb-4 flex items-center justify-center">
-                  <Users className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="font-semibold text-foreground">{member.name}</h3>
-                <p className="text-sm font-medium text-primary mb-2">{member.role}</p>
-                <p className="text-sm text-muted-foreground">{member.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <LeadershipSection />
 
       {/* Partners */}
-      <section id="partners" className="section-padding bg-secondary">
-        <div className="container-campaign">
-          <div className="text-center mb-12">
-            <h2 className="headline-section text-foreground mb-4">Our Partners</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              We work alongside trusted organizations worldwide to deliver 
-              comprehensive support to those who need it most.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {partners.map((partner) => (
-              <div
-                key={partner.name}
-                className="bg-background p-6 rounded-lg flex items-center gap-4"
-              >
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <Building className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-medium text-foreground">{partner.name}</h3>
-                  <p className="text-sm text-muted-foreground">{partner.type}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <PartnersSection />
 
       {/* Transparency */}
       <section className="section-padding">
