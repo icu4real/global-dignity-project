@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
+import MembersPage from "./pages/MembersPage";
 import OurWorkPage from "./pages/OurWorkPage";
 import ImpactPage from "./pages/ImpactPage";
 import GetHelpPage from "./pages/GetHelpPage";
@@ -32,6 +33,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
+            <Route path="/members" element={<MembersPage />} />
             <Route path="/our-work" element={<OurWorkPage />} />
             <Route path="/impact" element={<ImpactPage />} />
             <Route path="/get-help" element={<GetHelpPage />} />

@@ -1,6 +1,4 @@
 import { Layout } from "@/components/layout/Layout";
-import { LeadershipSection } from "@/components/about/LeadershipSection";
-import { PartnersSection } from "@/components/about/PartnersSection";
 
 export default function AboutPage() {
   return (
@@ -19,7 +17,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Mission */}
+      {/* Mission & Vision */}
       <section className="section-padding">
         <div className="container-campaign">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -40,12 +38,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
-      {/* Leadership */}
-      <LeadershipSection />
-
-      {/* Partners */}
-      <PartnersSection />
     </Layout>
   );
 }
