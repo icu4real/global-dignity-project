@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { EmailSubscription } from "@/components/EmailSubscription";
 
 export default function HomePage() {
   return (
@@ -59,13 +58,13 @@ export default function HomePage() {
           <div className="max-w-xl mx-auto text-center">
             <h2 className="headline-section text-foreground mb-4">Become a Member</h2>
             <p className="text-muted-foreground mb-8">
-              Join our community of advocates. Receive updates on global initiatives and ways to contribute.
+              Create an account to track your impact, view fund allocations, and access exclusive member reports.
             </p>
-            <EmailSubscription
-              subscriptionType="newsletter"
-              buttonText="Join"
-              placeholder="Your email address"
-            />
+            <Link to="/auth">
+              <Button className="btn-primary text-base px-8 py-4">
+                Join Now <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

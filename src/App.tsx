@@ -6,11 +6,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
-import MembersPage from "./pages/MembersPage";
 import OurWorkPage from "./pages/OurWorkPage";
 import ImpactPage from "./pages/ImpactPage";
 import GetHelpPage from "./pages/GetHelpPage";
 import DonatePage from "./pages/DonatePage";
+import MembersPage from "./pages/MembersPage";
+import AuthPage from "./pages/AuthPage";
 import PrivacyPage from "./pages/PrivacyPage";
 import TermsPage from "./pages/TermsPage";
 import TransparencyPage from "./pages/TransparencyPage";
@@ -33,11 +34,12 @@ const App = () => (
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
-            <Route path="/members" element={<MembersPage />} />
             <Route path="/our-work" element={<OurWorkPage />} />
             <Route path="/impact" element={<ImpactPage />} />
             <Route path="/get-help" element={<GetHelpPage />} />
             <Route path="/donate" element={<DonatePage />} />
+            <Route path="/members" element={<MembersPage />} />
+            <Route path="/auth" element={<AuthPage />} />
             <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="/terms" element={<TermsPage />} />
             <Route path="/transparency" element={<TransparencyPage />} />
