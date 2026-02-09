@@ -11,6 +11,7 @@ import ImpactPage from "./pages/ImpactPage";
 import GetHelpPage from "./pages/GetHelpPage";
 import DonatePage from "./pages/DonatePage";
 import MembersPage from "./pages/MembersPage";
+import StoriesPage from "./pages/StoriesPage";
 import AuthPage from "./pages/AuthPage";
 import PrivacyPage from "./pages/PrivacyPage";
 import TermsPage from "./pages/TermsPage";
@@ -39,11 +40,11 @@ const App = () => (
             <Route path="/get-help" element={<GetHelpPage />} />
             <Route path="/donate" element={<DonatePage />} />
             <Route path="/members" element={<MembersPage />} />
+            <Route path="/stories" element={<StoriesPage />} />
             <Route path="/auth" element={<AuthPage />} />
             <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="/terms" element={<TermsPage />} />
             <Route path="/transparency" element={<TransparencyPage />} />
-            {/* Admin Routes */}
             <Route path="/admin/login" element={<AdminLoginPage />} />
             <Route path="/admin" element={<AdminDashboardPage />} />
             <Route path="/admin/donations" element={<AdminDonationsPage />} />
