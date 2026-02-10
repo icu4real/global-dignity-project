@@ -44,6 +44,41 @@ export type Database = {
         }
         Relationships: []
       }
+      campaign_engagements: {
+        Row: {
+          campaign_id: string
+          created_at: string
+          engagement_type: string
+          id: string
+          message: string | null
+          user_id: string
+        }
+        Insert: {
+          campaign_id: string
+          created_at?: string
+          engagement_type?: string
+          id?: string
+          message?: string | null
+          user_id: string
+        }
+        Update: {
+          campaign_id?: string
+          created_at?: string
+          engagement_type?: string
+          id?: string
+          message?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "campaign_engagements_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "campaigns"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       campaign_settings: {
         Row: {
           id: string
@@ -65,6 +100,54 @@ export type Database = {
           setting_value?: Json
           updated_at?: string
           updated_by?: string | null
+        }
+        Relationships: []
+      }
+      campaigns: {
+        Row: {
+          category: string
+          created_at: string
+          created_by: string | null
+          current_amount: number | null
+          description: string
+          end_date: string | null
+          goal_amount: number | null
+          id: string
+          image_url: string | null
+          start_date: string | null
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          created_by?: string | null
+          current_amount?: number | null
+          description: string
+          end_date?: string | null
+          goal_amount?: number | null
+          id?: string
+          image_url?: string | null
+          start_date?: string | null
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          created_by?: string | null
+          current_amount?: number | null
+          description?: string
+          end_date?: string | null
+          goal_amount?: number | null
+          id?: string
+          image_url?: string | null
+          start_date?: string | null
+          status?: string
+          title?: string
+          updated_at?: string
         }
         Relationships: []
       }

@@ -8,6 +8,7 @@ import prideLogo from "@/assets/pride-logo.jpeg";
 const navigation = [
   { name: "About", href: "/about" },
   { name: "Our Work", href: "/our-work" },
+  { name: "Campaigns", href: "/campaigns" },
   { name: "Stories", href: "/stories" },
   { name: "Impact", href: "/impact" },
   { name: "Resources", href: "/get-help" },
