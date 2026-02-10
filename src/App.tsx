@@ -12,6 +12,7 @@ import GetHelpPage from "./pages/GetHelpPage";
 import DonatePage from "./pages/DonatePage";
 import MembersPage from "./pages/MembersPage";
 import StoriesPage from "./pages/StoriesPage";
+import CampaignsPage from "./pages/CampaignsPage";
 import AuthPage from "./pages/AuthPage";
 import PrivacyPage from "./pages/PrivacyPage";
 import TermsPage from "./pages/TermsPage";
@@ -22,6 +23,8 @@ import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
 import AdminDonationsPage from "./pages/admin/AdminDonationsPage";
 import AdminDonorsPage from "./pages/admin/AdminDonorsPage";
 import AdminSettingsPage from "./pages/admin/AdminSettingsPage";
+import AdminStoriesPage from "./pages/admin/AdminStoriesPage";
+import AdminCampaignsPage from "./pages/admin/AdminCampaignsPage";
 
 const queryClient = new QueryClient();
 
