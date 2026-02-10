@@ -54,6 +54,8 @@ const App = () => (
             <Route path="/admin/donations" element={<AdminDonationsPage />} />
             <Route path="/admin/donors" element={<AdminDonorsPage />} />
             <Route path="/admin/settings" element={<AdminSettingsPage />} />
+            <Route path="/admin/stories" element={<AdminStoriesPage />} />
+            <Route path="/admin/campaigns" element={<AdminCampaignsPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

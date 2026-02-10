@@ -18,6 +18,8 @@ const navItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/admin" },
   { icon: DollarSign, label: "Donations", href: "/admin/donations" },
   { icon: Users, label: "Donors", href: "/admin/donors" },
+  { icon: BookOpen, label: "Stories", href: "/admin/stories" },
+  { icon: Megaphone, label: "Campaigns", href: "/admin/campaigns" },
   { icon: Settings, label: "Settings", href: "/admin/settings" },
 ];
 
