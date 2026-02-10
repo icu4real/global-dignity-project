@@ -6,7 +6,9 @@ import {
   Settings, 
   LogOut,
   Menu,
-  X
+  X,
+  BookOpen,
+  Megaphone
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useState } from "react";
